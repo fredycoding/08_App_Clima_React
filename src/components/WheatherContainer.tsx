@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DegreeSection } from "./DegreeSection";
 import { DetailsTable } from "./DetailsTable";
 import { Location } from "./Location";
-import { WeatherData } from '../interfaces/WeatherData';
+
 
 export const WheatherContainer = ({
     fetchedData,
@@ -28,7 +28,8 @@ export const WheatherContainer = ({
     });
 
     useEffect(() => {
-        if (fetchedData){
+
+        if (fetchedData) {
             console.log("YA HAY DATOS")
             setWeather({
                 city: fetchedData.name,
@@ -44,21 +45,32 @@ export const WheatherContainer = ({
                 latitude: fetchedData.coord.lat,
                 windSpeed: fetchedData.wind.speed + "m/s",
             })
-            
-        } else{
+
+        } else {
             console.log("SIN DATOS")
         }
-            
+
     }, [fetchedData])
 
 
     return (
         <main className="w-96 rounded-3xl bg-gradient-to-b from-gray-800 to-gray-700">
-            <div className="flex w-full items-center flex-col p-8">
-                <Location data={weather} />
-                <DegreeSection data={weather} />
-                <DetailsTable data={weather} />
-            </div>
+
+            {error === "" ? (
+                <div className="flex w-full items-center flex-col p-8">
+                    <Location data={weather} />
+                    <DegreeSection data={weather} />
+                    <DetailsTable data={weather} />
+                </div>
+
+            ) : (
+
+                <div className="flex justify-center items-center h-56 text-white font-bold text-xl text-center p-5">
+                  😥 Error: {error} 
+                </div>
+            )}
+
+
         </main>
     )
 }
