@@ -21,7 +21,7 @@ const handleChange = (e: FormEvent)=>{
         handleSearch(e, search)
         setSearch("")}}>
       <label htmlFor="search"></label>
-      <input value={search} onChange={handleChange} type="search" autoComplete="off" id="search" name="search"  placeholder="Buscar ubicación" className="mb-10 rounded-lg px-5 py-2 w-80 text-slate-800" />
+      <input value={search} onChange={handleChange} type="search" autoComplete="off" id="search" name="search"  placeholder="Buscar ubicación" className="mb-6 rounded-lg px-5 py-2 w-80 text-slate-800" />
 
       </form>
   )

@@ -2,6 +2,7 @@ import { useEffect, useState, FormEvent } from 'react';
 import { getWeatherByCoords, getWeatherBySearch } from './Api/fetchWeather';
 import { SearchBox } from "./components/SearchBox";
 import { WheatherContainer } from "./components/WheatherContainer";
+import Swal from 'sweetalert2'
 
 function App() {
   const [fetchedData, setFetchedData] = useState(null);
@@ -19,9 +20,8 @@ function App() {
         const data = await getWeatherByCoords(LAT, LON);
         setFetchedData(data);
 
-      } catch (err) {
-        console.log("Error: ", err)
-        setError('Mensaje de error');
+      } catch (err) {        
+        setError("Error: " + err);
       }
     })
   }, [])
@@ -33,11 +33,20 @@ function App() {
     try {
       const data = await getWeatherBySearch(CITY)
 
-      if (data === "404") {
-        setError("No se encontro la ciudad")
-      } else if (data === "400") {
-        setError("Ingrese la ciudad")
 
+      if (data.cod === "404") {
+        Swal.fire(
+          'Error',
+          `Error: ${data.message}`,
+          'error'
+        )       
+      
+      } else if (data.cod === "400") {
+        Swal.fire(
+          'Error',
+          `Error: ${data.message}`,
+          'error'
+        )
       }else{
         setFetchedData(data)
       }
@@ -50,6 +59,7 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center h-screen w-screen items-center shadow-lg">
+      <h1 className='font-bold text-slate-700 text-3xl mb-6'>APLICACIÓN DEL CLIMA</h1>
       <SearchBox handleSearch={handleSearch} />
       <WheatherContainer fetchedData={fetchedData} error={""} /> {/*Envio los resultados a este componente por props */}
     </div>
