@@ -1,4 +1,4 @@
-const API_KEY = "5efd1ece61942ebe380574f83bacba1a";
+const API_KEY = <LLAVE_DE_WHEATHERMAP>;
 
 export const getWeatherByCoords = async (LAT: number, LON: number,):Promise<any> => {
     const API_COORDS = `https://api.openweathermap.org/data/2.5/weather?lat=${LAT}&lon=${LON}&appid=${API_KEY}`;
